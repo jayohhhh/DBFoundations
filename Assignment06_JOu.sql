@@ -4,7 +4,12 @@
 -- Desc: This file demonstrates how to use Views
 -- Change Log: When,Who,What
 -- 2017-01-01,YourNameHere,Created File
+-- 2022-02-20, JOu, created new views of the data
+-- 2022-02-20, JOu, Deny access to tables and grant access to views
+-- 2022-02-21, JOu, Create new views for problems 3-10
+-- 2022-02-21, JOu, Order views to match table output
 --**************************************************************************--
+
 Begin Try
 	Use Master;
 	If Exists(Select Name From SysDatabases Where Name = 'Assignment06DB_JOu')
@@ -175,6 +180,7 @@ Go
 --        2) Create one view per table!
 --		  3) Use SchemaBinding to protect the views from being orphaned!
 
+-- Create 4 views based on tables created for Categories, Products, Inventories, Employees
 Create
 View vCategories 
 WITH SCHEMABINDING
@@ -225,11 +231,14 @@ Go
 -- Question 2 (5% pts): How can you set permissions, so that the public group CANNOT select data 
 -- from each table, but can select data from each view?
 
+-- Deny select statements on the original tables
 Deny Select on Categories to Public;
 Deny Select on Products to Public;
 Deny Select on Employees to Public;
 Deny Select on Inventories to Public;
+Go 
 
+-- Grant select statements on views created of the original tables
 Grant Select on vCategories to Public;
 Grant Select on vProducts to Public;
 Grant Select on vEmployees to Public;
